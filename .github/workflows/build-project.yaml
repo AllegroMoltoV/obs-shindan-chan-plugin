@@ -142,8 +142,11 @@ jobs:
           codesign: ${{ fromJSON(needs.check-event.outputs.codesign) }}
           codesignIdent: ${{ steps.codesign.outputs.codesignIdent }}
 
+      # build-macos はプラグインのターゲットだけを xcodebuild するため、テストのターゲットはここでビルドする
       - name: Run Unit Tests 🧪
-        run: ctest --test-dir build_macos -C ${{ needs.check-event.outputs.config }} --output-on-failure
+        run: |
+          cmake --build build_macos --config ${{ needs.check-event.outputs.config }} --target shindan-core-tests
+          ctest --test-dir build_macos -C ${{ needs.check-event.outputs.config }} --output-on-failure
 
       - name: Package Plugin 📀
         uses: ./.github/actions/package-plugin
