@@ -1,0 +1,11 @@
+autoload -Uz log_error log_group
+
+if (( ! ${+project_root} )) {
+  log_error "'project_root' must be set."
+  return 2
+}
+if (( ! (${skips[(Ie)all]} + ${skips[(Ie)deps]}) )) {
+  log_group 'Installing pinned OBS Studio and Ubuntu build dependencies'
+  bash "${project_root}/.github/scripts/install-obs-ubuntu"
+  log_group
+}
