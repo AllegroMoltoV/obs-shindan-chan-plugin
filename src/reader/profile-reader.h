@@ -56,8 +56,10 @@ struct Snapshot {
 	double runtimeFps = 0;
 	int runtimeSampleRate = 0;
 
-	// 配信中だけ埋まる。B1 の突き合わせに使う
-	bool streaming = false;
+	// 配信中と録画中だけ埋まる。OBS が配信用のエンコーダーへ実際に適用した設定で、
+	// 組み立てた effective との突き合わせに使う (tools/verify-reader.py)。
+	// 録画中の値が配信用のエンコーダーを表すのは、録画の設定が「配信と同じ」のときだけ
+	std::string liveSource; // "streaming"、"recording"。どちらでもなければ空
 	std::string liveEncoderId;
 	int liveVideoBitrate = 0;
 	std::string liveRateControl;

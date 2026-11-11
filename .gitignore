@@ -10,6 +10,7 @@
 !/docs
 !/src
 !/tests
+!/tools
 !.clang-format
 !.gersemirc
 !.gitignore
@@ -29,3 +30,6 @@
 /cmake/.CMakeBuildNumber
 
 .docs
+
+# Python のキャッシュ
+__pycache__/

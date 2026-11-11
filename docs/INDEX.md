@@ -10,7 +10,8 @@ context compaction で文脈が失われた場合は、この索引から必要�
 | 初期調査 (配信前の設定の読み方、コーデックと配信先の判別、既存プラグインの構成、ロゴの前例、Twitch の上限) | `docs/reports/2026-11-10-bootstrap-survey.md` |
 | ロゴ案と比較ページ | `.appendix/logo-proposals/comparison.html` |
 | 採用したロゴ (案 A) の原本と PNG | `docs/images/logo.svg`、`docs/images/logo.png`、`.soko-kun/logo.png` |
-| フェーズ B で依頼者が操作する手順と記録欄 | `docs/reports/2026-11-10-phase-b-sheet.md` |
+| 依頼者が操作する手順書 (git 追跡対象外) | `.prompts/MANUALS/` |
+| フェーズ B で導入する ZIP (git 追跡対象外) | `.appendix/20261111/` |
 | 判定の基準の数値 | `data/rules.ini` |
 | 実行ログ (生の出力。git 追跡対象外) | `.logs/` |
 | 実行ログ (残す価値があると判断したもの) | `docs/logs/` |
