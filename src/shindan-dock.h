@@ -47,6 +47,7 @@ protected:
 	bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
+	void hookApplyButton(QWidget *settingsDialog);
 	void loadRules();
 	void render();
 	QString itemValueText(Item item) const;
