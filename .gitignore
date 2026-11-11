@@ -30,3 +30,6 @@
 /cmake/.CMakeBuildNumber
 
 .docs
+
+# Python のキャッシュ
+__pycache__/
