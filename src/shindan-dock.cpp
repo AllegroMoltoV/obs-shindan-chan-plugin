@@ -6,6 +6,7 @@
 
 #include <QApplication>
 #include <QComboBox>
+#include <QDialogButtonBox>
 #include <QEvent>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -243,12 +244,38 @@ void ShindanDock::showEvent(QShowEvent *event)
 
 bool ShindanDock::eventFilter(QObject *watched, QEvent *event)
 {
-	if (event->type() == QEvent::Hide && watched->isWidgetType() &&
+	const QEvent::Type type = event->type();
+	if ((type == QEvent::Show || type == QEvent::Hide) && watched->isWidgetType() &&
 	    watched->objectName() == QStringLiteral("OBSBasicSettings")) {
-		// 保存の処理が終わってから読むため、イベントループに戻ってから診断する
-		QTimer::singleShot(0, this, [this]() { rediagnose("settings_closed"); });
+		if (type == QEvent::Show) {
+			hookApplyButton(static_cast<QWidget *>(watched));
+		} else {
+			// 保存の処理が終わってから読むため、イベントループに戻ってから診断する
+			QTimer::singleShot(0, this, [this]() { rediagnose("settings_closed"); });
+		}
 	}
 	return QWidget::eventFilter(watched, event);
+}
+
+void ShindanDock::hookApplyButton(QWidget *settingsDialog)
+{
+	// 「適用」を押したときも、画面を開いたまま診断をやり直す。
+	// OBS は buttonBox の clicked で設定を保存する (OBSBasicSettings::on_buttonBox_clicked)。
+	// buttonBox の名前は OBS の内部の作りのため、見つからないときは閉じたときの再診断だけになる
+	auto *buttons = settingsDialog->findChild<QDialogButtonBox *>(QStringLiteral("buttonBox"));
+	if (!buttons) {
+		obs_log(LOG_WARNING, "settings buttonBox not found; rediagnose on Apply is disabled");
+		return;
+	}
+	const char *hookedProperty = "obsShindanChanHooked";
+	if (buttons->property(hookedProperty).toBool())
+		return;
+	buttons->setProperty(hookedProperty, true);
+	// OBS の保存の処理より後に接続されるため、保存が終わってから呼ばれる。念のためイベントループにも戻す
+	connect(buttons, &QDialogButtonBox::clicked, this, [this, buttons](QAbstractButton *button) {
+		if (buttons->buttonRole(button) == QDialogButtonBox::ApplyRole)
+			QTimer::singleShot(0, this, [this]() { rediagnose("settings_applied"); });
+	});
 }
 
 QString ShindanDock::itemValueText(Item item) const
