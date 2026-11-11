@@ -2,6 +2,8 @@
 
 OBS Studio の配信設定を、YouTube Live と Twitch の推奨値と比べて診断するドックのプラグインです。OBS の中で動いている設定を直接読み、結果を緑・黄・赤のランプと話し言葉のコメントで示します。設定を変えたあとも、OBS を離れずに診断をやり直せます。
 
+[配信プラグイン倉庫くん](https://soko-kun.allegromoltov.jp/plugins/allegromoltov/obs-shindan-chan-plugin) にも掲載しています。 / Also listed on [Plugin Soko-kun](https://soko-kun.allegromoltov.jp/plugins/allegromoltov/obs-shindan-chan-plugin?lang=en).
+
 Windows 向けのデスクトップアプリ「[OBS診断ちゃん](https://github.com/AllegroMoltoV/obs-shindan-chan)」の診断を、OBS のドックへ移したものです。アプリのネットワークの診断は、このプラグインに含みません。
 
 このプラグインは OBS Project の公式のものではなく、OBS Project とは関係ありません。YouTube と Twitch の名前は、診断の基準にした配信先を示すためにだけ使っています。
