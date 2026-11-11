@@ -6,6 +6,8 @@ Windows 向けのデスクトップアプリ「[OBS診断ちゃん](https://gith
 
 このプラグインは OBS Project の公式のものではなく、OBS Project とは関係ありません。YouTube と Twitch の名前は、診断の基準にした配信先を示すためにだけ使っています。
 
+![OBS診断ちゃんのドック](docs/images/dock.png)
+
 ## 主な機能
 
 - 解像度・FPS・映像のビットレート・レート制御・キーフレームの間隔・プロファイル・音声のサンプルレート・音声のビットレートの 8 項目を診断します。
@@ -42,6 +44,8 @@ YouTube の案内には映像のビットレートの上限がないため、上
 ## 対応環境と配布
 
 対象の OBS Studio のバージョンは 33.0.1 です。GitHub Actions で Windows・macOS・Linux のビルドと判定の単体テストを実行しています。
+
+Windows の OBS Studio 33.0.1 では、作者がドックの使い心地を確かめました。あわせて、配信の前に組み立てた値と OBS が配信用のエンコーダーへ実際に適用した値が、基本モードと詳細モードの 10 通りの組合せで一致することを確かめています。詳細は [読み取りの自動検証の結果](docs/reports/2026-11-11-reader-verification.md) にあります。
 
 | OS | 配布方法 |
 | --- | --- |
@@ -146,11 +150,15 @@ sudo cmake --install build_x86_64 --config RelWithDebInfo --prefix /usr/local
 
 ### 日本語
 
-Anthropic Claude Code を、ソースコード、ビルドの設定、テスト、文書、ロゴを含むほぼすべての工程で使用しました。ロゴは Claude Code が作った 3 つの案から、作者が選びました。原本は [logo.svg](docs/images/logo.svg)、掲載用の画像は [logo.png](docs/images/logo.png) です。コードの読解による厳密な人間のレビューは実施していません。
+Anthropic Claude Code を、ソースコード、ビルドの設定、テスト、文書、ロゴを含むほぼすべての工程で使用しました。ロゴは Claude Code が作った 3 つの案から、作者が選びました。原本は [logo.svg](docs/images/logo.svg)、掲載用の画像は [logo.png](docs/images/logo.png) です。
+
+作者本人は Windows 上の OBS Studio でユーザーテストを実施しました。ドックの画面の画像は、作者が撮影したスクリーンショットで、生成 AI を使用していません。コードの読解による厳密な人間のレビューは実施していません。
 
 ### English
 
-Anthropic Claude Code was used for almost the entire development process, including source code, build configuration, tests, documentation, and the logo. The author chose the logo from three proposals made by Claude Code. The [SVG source](docs/images/logo.svg) and [PNG image](docs/images/logo.png) are included in the repository. The author did not perform a rigorous human review of the source code.
+Anthropic Claude Code was used for almost the entire development process, including source code, build configuration, tests, documentation, and the logo. The author chose the logo from three proposals made by Claude Code. The [SVG source](docs/images/logo.svg) and [PNG image](docs/images/logo.png) are included in the repository.
+
+The author performed user testing in OBS Studio on Windows. The dock screenshot was taken by the author without generative AI. The author did not perform a rigorous human review of the source code.
 
 ## License
 
