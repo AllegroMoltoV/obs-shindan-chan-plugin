@@ -179,29 +179,74 @@ void readAdvanced(config_t *cfg, obs_service_t *service, Snapshot &s)
 	obs_data_release(file);
 }
 
-void readLive(Snapshot &s)
+void readLiveVideo(obs_encoder_t *venc, Snapshot &s)
+{
+	if (!venc)
+		return;
+	s.liveEncoderId = str(obs_encoder_get_id(venc));
+	obs_data_t *settings = obs_encoder_get_settings(venc);
+	readEncoderSettings(settings, s.liveVideoBitrate, s.liveRateControl, s.liveKeyint, s.liveProfile);
+	obs_data_release(settings);
+}
+
+void readLiveAudio(obs_encoder_t *aenc, Snapshot &s)
+{
+	if (!aenc)
+		return;
+	obs_data_t *settings = obs_encoder_get_settings(aenc);
+	s.liveAudioBitrate = static_cast<int>(obs_data_get_int(settings, "bitrate"));
+	obs_data_release(settings);
+}
+
+bool readStreamingOutput(Snapshot &s)
 {
 	obs_output_t *output = obs_frontend_get_streaming_output();
 	if (!output)
-		return;
-	s.streaming = obs_output_active(output);
-	if (s.streaming) {
-		obs_encoder_t *venc = obs_output_get_video_encoder(output);
-		if (venc) {
-			s.liveEncoderId = str(obs_encoder_get_id(venc));
-			obs_data_t *settings = obs_encoder_get_settings(venc);
-			readEncoderSettings(settings, s.liveVideoBitrate, s.liveRateControl, s.liveKeyint,
-					    s.liveProfile);
-			obs_data_release(settings);
-		}
-		obs_encoder_t *aenc = obs_output_get_audio_encoder(output, 0);
-		if (aenc) {
-			obs_data_t *settings = obs_encoder_get_settings(aenc);
-			s.liveAudioBitrate = static_cast<int>(obs_data_get_int(settings, "bitrate"));
-			obs_data_release(settings);
-		}
+		return false;
+	bool active = obs_output_active(output);
+	if (active) {
+		s.liveSource = "streaming";
+		readLiveVideo(obs_output_get_video_encoder(output), s);
+		readLiveAudio(obs_output_get_audio_encoder(output, 0), s);
 	}
 	obs_output_release(output);
+	return active;
+}
+
+// 録画の開始でも、OBS は配信用のエンコーダーへ配信先の推奨値を適用する
+// (SimpleOutput::StartRecording の Update()、AdvancedOutput::StartRecording の UpdateStreamSettings())。
+// 配信用のエンコーダーは名前で引く (SimpleOutput.cpp:76・202、AdvancedOutput.cpp:129・178)
+void readRecordingEncoders(Snapshot &s)
+{
+	if (!obs_frontend_recording_active())
+		return;
+	s.liveSource = "recording";
+	const char *videoName = s.simpleMode ? "simple_video_stream" : "advanced_video_stream";
+	obs_encoder_t *venc = obs_get_encoder_by_name(videoName);
+	readLiveVideo(venc, s);
+	obs_encoder_release(venc);
+
+	const char *audioNames[] = {"simple_aac", "simple_opus"};
+	if (!s.simpleMode) {
+		obs_encoder_t *aenc = obs_get_encoder_by_name("adv_stream_audio");
+		readLiveAudio(aenc, s);
+		obs_encoder_release(aenc);
+		return;
+	}
+	for (const char *name : audioNames) {
+		obs_encoder_t *aenc = obs_get_encoder_by_name(name);
+		if (aenc) {
+			readLiveAudio(aenc, s);
+			obs_encoder_release(aenc);
+			return;
+		}
+	}
+}
+
+void readLive(Snapshot &s)
+{
+	if (!readStreamingOutput(s))
+		readRecordingEncoders(s);
 }
 
 } // namespace
@@ -274,13 +319,13 @@ void logSnapshot(const Snapshot &s, const char *trigger)
 		s.effectiveAudioBitrate);
 	obs_log(LOG_INFO, "[snapshot] audio sample_rate config=%d runtime=%d channels=%s track=%d", s.audioSampleRate,
 		s.runtimeSampleRate, s.channelSetup.c_str(), s.audioTrackIndex);
-	if (s.streaming) {
+	if (!s.liveSource.empty()) {
 		obs_log(LOG_INFO,
-			"[snapshot] live encoder=%s bitrate=%d rate_control=%s keyint_sec=%d profile=%s audio_bitrate=%d",
-			s.liveEncoderId.c_str(), s.liveVideoBitrate, s.liveRateControl.c_str(), s.liveKeyint,
-			s.liveProfile.c_str(), s.liveAudioBitrate);
+			"[snapshot] live source=%s encoder=%s bitrate=%d rate_control=%s keyint_sec=%d profile=%s audio_bitrate=%d",
+			s.liveSource.c_str(), s.liveEncoderId.c_str(), s.liveVideoBitrate, s.liveRateControl.c_str(),
+			s.liveKeyint, s.liveProfile.c_str(), s.liveAudioBitrate);
 	} else {
-		obs_log(LOG_INFO, "[snapshot] live not streaming");
+		obs_log(LOG_INFO, "[snapshot] live none");
 	}
 }
 

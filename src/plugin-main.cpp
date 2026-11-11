@@ -72,6 +72,11 @@ static void on_frontend_event(enum obs_frontend_event event, void *private_data)
 		if (g_dock)
 			g_dock->rediagnose("streaming_started");
 		break;
+	case OBS_FRONTEND_EVENT_RECORDING_STARTED:
+		// 録画でも配信用のエンコーダーへ推奨値が適用されるため、配信をせずに突き合わせられる
+		if (g_dock)
+			g_dock->rediagnose("recording_started");
+		break;
 	case OBS_FRONTEND_EVENT_STREAMING_STOPPED:
 		if (g_dock)
 			g_dock->rediagnose("streaming_stopped");
