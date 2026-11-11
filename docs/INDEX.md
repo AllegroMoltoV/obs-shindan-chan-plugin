@@ -14,7 +14,7 @@ context compaction で文脈が失われた場合は、この索引から必要�
 | フェーズ B で導入する ZIP (git 追跡対象外) | `.appendix/20261111/` |
 | 判定の基準の数値 | `data/rules.ini` |
 | 読み取りの自動検証の結果 (B1) | `docs/reports/2026-11-11-reader-verification.md` |
-| 倉庫くんのロゴと説明の画像 | `.soko-kun/logo.png`、`.soko-kun/image.png` |
+| 倉庫くんのロゴと説明の画像 | `.soko-kun/logo.png`、`.soko-kun/image.gif` |
 | 実行ログ (生の出力。git 追跡対象外) | `.logs/` |
 | 実行ログ (残す価値があると判断したもの) | `docs/logs/` |
 | 計画と決定事項 (Beads 使用時の正本) | `bd show <親課題>` |

@@ -6,7 +6,7 @@ Windows 向けのデスクトップアプリ「[OBS診断ちゃん](https://gith
 
 このプラグインは OBS Project の公式のものではなく、OBS Project とは関係ありません。YouTube と Twitch の名前は、診断の基準にした配信先を示すためにだけ使っています。
 
-![OBS診断ちゃんのドック](docs/images/dock.png)
+![OBS診断ちゃんのドック](docs/images/dock.gif)
 
 ## 主な機能
 
@@ -152,13 +152,13 @@ sudo cmake --install build_x86_64 --config RelWithDebInfo --prefix /usr/local
 
 Anthropic Claude Code を、ソースコード、ビルドの設定、テスト、文書、ロゴを含むほぼすべての工程で使用しました。ロゴは Claude Code が作った 3 つの案から、作者が選びました。原本は [logo.svg](docs/images/logo.svg)、掲載用の画像は [logo.png](docs/images/logo.png) です。
 
-作者本人は Windows 上の OBS Studio でユーザーテストを実施しました。ドックの画面の画像は、作者が撮影したスクリーンショットで、生成 AI を使用していません。コードの読解による厳密な人間のレビューは実施していません。
+作者本人は Windows 上の OBS Studio でユーザーテストを実施しました。ドックの動作の画像は、作者が画面を収録したもので、生成 AI を使用していません。コードの読解による厳密な人間のレビューは実施していません。
 
 ### English
 
 Anthropic Claude Code was used for almost the entire development process, including source code, build configuration, tests, documentation, and the logo. The author chose the logo from three proposals made by Claude Code. The [SVG source](docs/images/logo.svg) and [PNG image](docs/images/logo.png) are included in the repository.
 
-The author performed user testing in OBS Studio on Windows. The dock screenshot was taken by the author without generative AI. The author did not perform a rigorous human review of the source code.
+The author performed user testing in OBS Studio on Windows. The animated GIF of the dock was screen-recorded by the author without generative AI. The author did not perform a rigorous human review of the source code.
 
 ## License
 
