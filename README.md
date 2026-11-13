@@ -8,7 +8,7 @@ Windows 向けのデスクトップアプリ「[OBS診断ちゃん](https://gith
 
 このプラグインは OBS Project の公式のものではなく、OBS Project とは関係ありません。YouTube と Twitch の名前は、診断の基準にした配信先を示すためにだけ使っています。
 
-![OBS診断ちゃんのドック](docs/images/dock.gif)
+![診断ちゃんのドック](docs/images/dock.gif)
 
 ## 主な機能
 
@@ -77,7 +77,7 @@ C:\ProgramData\obs-studio\plugins\
          └─ ja-JP.ini
 ```
 
-5. OBS Studio を起動し、メニューの「ドック」から「OBS診断ちゃん」を選んでください。
+5. OBS Studio を起動し、メニューの「ドック」から「診断ちゃん」を選んでください。
 
 `ProgramData` は隠しフォルダーです。アドレス欄にパスを入力すると、隠しフォルダーの表示の設定を変えずに開けます。
 
