@@ -37,7 +37,7 @@
         }
     },
     "name": "obs-shindan-chan-plugin",
-    "displayName": "OBS診断ちゃん",
+    "displayName": "診断ちゃん",
     "version": "1.0.1",
     "author": "AllegroMoltoV",
     "website": "https://www.allegromoltov.jp",

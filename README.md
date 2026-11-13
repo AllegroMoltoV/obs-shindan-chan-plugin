@@ -1,4 +1,4 @@
-# OBS診断ちゃん / OBS Shindan-chan
+# 診断ちゃん / Shindan-chan
 
 OBS Studio の配信設定を、YouTube Live と Twitch の推奨値と比べて診断するドックのプラグインです。OBS の中で動いている設定を直接読み、結果を緑・黄・赤のランプと話し言葉のコメントで示します。設定を変えたあとも、OBS を離れずに診断をやり直せます。
 
