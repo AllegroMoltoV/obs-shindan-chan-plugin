@@ -173,6 +173,12 @@ AllegroMoltoV - [https://www.allegromoltov.jp](https://www.allegromoltov.jp)
 
 ## 更新情報
 
+### v1.0.2
+
+- 名前から OBS を外し、表示名を「診断ちゃん / Shindan-chan」にしました。リポジトリの名前を obs-shindan-chan-plugin から shindan-chan に変えました。
+- プラグインのフォルダーの名前が obs-shindan-chan-plugin から shindan-chan に変わりました。v1.0.1 以前から更新するときは、`plugins` フォルダーにある古い `obs-shindan-chan-plugin` フォルダーを削除してください。残すと古い版も読み込まれます。ドックの配置はそのまま引き継がれます。
+- 配信プラグイン倉庫くんに表示名と載せる OS を伝える宣言ファイル (.soko-kun/config.json) を足しました。macOS と Linux の配布物は動作を確かめていないため、倉庫くんには Windows の配布物だけを載せます。診断の動作は v1.0.1 と同じです。
+
 ### v1.0.1
 
 - リリースの配布物にビルドの来歴の証明 (GitHub Artifact Attestation) を付けるようにしました。プラグインの動作は v1.0.0 と同じです。
