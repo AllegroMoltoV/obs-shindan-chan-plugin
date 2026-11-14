@@ -33,12 +33,12 @@
     },
     "platformConfig": {
         "macos": {
-            "bundleId": "jp.allegromoltov.obs-shindan-chan-plugin"
+            "bundleId": "jp.allegromoltov.shindan-chan"
         }
     },
-    "name": "obs-shindan-chan-plugin",
-    "displayName": "OBS診断ちゃん",
-    "version": "1.0.1",
+    "name": "shindan-chan",
+    "displayName": "診断ちゃん",
+    "version": "1.0.2",
     "author": "AllegroMoltoV",
     "website": "https://www.allegromoltov.jp",
     "email": "contact@allegromoltov.jp"

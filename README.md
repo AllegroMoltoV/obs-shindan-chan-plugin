@@ -1,14 +1,14 @@
-# OBS診断ちゃん / OBS Shindan-chan
+# 診断ちゃん / Shindan-chan
 
 OBS Studio の配信設定を、YouTube Live と Twitch の推奨値と比べて診断するドックのプラグインです。OBS の中で動いている設定を直接読み、結果を緑・黄・赤のランプと話し言葉のコメントで示します。設定を変えたあとも、OBS を離れずに診断をやり直せます。
 
-[配信プラグイン倉庫くん](https://soko-kun.allegromoltov.jp/plugins/allegromoltov/obs-shindan-chan-plugin) にも掲載しています。 / Also listed on [Plugin Soko-kun](https://soko-kun.allegromoltov.jp/plugins/allegromoltov/obs-shindan-chan-plugin?lang=en).
+[配信プラグイン倉庫くん](https://soko-kun.allegromoltov.jp/plugins/allegromoltov/shindan-chan) にも掲載しています。 / Also listed on [Plugin Soko-kun](https://soko-kun.allegromoltov.jp/plugins/allegromoltov/shindan-chan?lang=en).
 
 Windows 向けのデスクトップアプリ「[OBS診断ちゃん](https://github.com/AllegroMoltoV/obs-shindan-chan)」の診断を、OBS のドックへ移したものです。アプリのネットワークの診断は、このプラグインに含みません。
 
 このプラグインは OBS Project の公式のものではなく、OBS Project とは関係ありません。YouTube と Twitch の名前は、診断の基準にした配信先を示すためにだけ使っています。
 
-![OBS診断ちゃんのドック](docs/images/dock.gif)
+![診断ちゃんのドック](docs/images/dock.gif)
 
 ## 主な機能
 
@@ -61,15 +61,16 @@ macOS と Linux の OBS 上での動作は確認していません。
 
 ### Windows
 
-1. [Releases](https://github.com/AllegroMoltoV/obs-shindan-chan-plugin/releases) から最新の Windows x64 の ZIP をダウンロードしてください。
+1. [Releases](https://github.com/AllegroMoltoV/shindan-chan/releases) から最新の Windows x64 の ZIP をダウンロードしてください。
 2. OBS Studio を終了し、ZIP を展開してください。
 3. エクスプローラーのアドレス欄に `%PROGRAMDATA%` を入力して開き、`obs-studio` フォルダー、`plugins` フォルダーの順に開いてください。フォルダーがない場合は、右クリックの「新規作成」から「フォルダー」を選び、同じ名前のフォルダーを作ってください。
-4. ZIP の中の `obs-shindan-chan-plugin` フォルダーを、`plugins` フォルダーへコピーしてください。管理者の許可を求められた場合は、許可して続けてください。
+4. ZIP の中の `shindan-chan` フォルダーを、`plugins` フォルダーへコピーしてください。管理者の許可を求められた場合は、許可して続けてください。
+5. v1.0.1 以前を入れていた場合は、`plugins` フォルダーにある古い `obs-shindan-chan-plugin` フォルダーを削除してください。v1.0.2 でフォルダーの名前を変えたため、残すと古い版も読み込まれます。
 
 ```text
 C:\ProgramData\obs-studio\plugins\
-└─ obs-shindan-chan-plugin\
-   ├─ obs-shindan-chan-plugin.dll
+└─ shindan-chan\
+   ├─ shindan-chan.dll
    └─ data\
       ├─ rules.ini
       └─ locale\
@@ -77,7 +78,7 @@ C:\ProgramData\obs-studio\plugins\
          └─ ja-JP.ini
 ```
 
-5. OBS Studio を起動し、メニューの「ドック」から「OBS診断ちゃん」を選んでください。
+6. OBS Studio を起動し、メニューの「ドック」から「診断ちゃん」を選んでください。
 
 `ProgramData` は隠しフォルダーです。アドレス欄にパスを入力すると、隠しフォルダーの表示の設定を変えずに開けます。
 
@@ -108,8 +109,8 @@ Twitch の Enhanced Broadcasting を使う配信では、映像の設定を配�
 Git と CMake 3.28 以上を用意してください。ビルド時に依存するファイルを取得するため、インターネットへの接続が必要です。依存する OBS のソースと Qt のバージョンは [buildspec.json](buildspec.json) で固定しています。
 
 ```sh
-git clone https://github.com/AllegroMoltoV/obs-shindan-chan-plugin.git
-cd obs-shindan-chan-plugin
+git clone https://github.com/AllegroMoltoV/shindan-chan.git
+cd shindan-chan
 ```
 
 ### Windows
@@ -123,7 +124,7 @@ ctest --test-dir build_x64 -C RelWithDebInfo --output-on-failure
 cmake --install build_x64 --config RelWithDebInfo --prefix release/RelWithDebInfo
 ```
 
-生成した `release/RelWithDebInfo/obs-shindan-chan-plugin` フォルダーを、前述のインストール先へコピーしてください。
+生成した `release/RelWithDebInfo/shindan-chan` フォルダーを、前述のインストール先へコピーしてください。
 
 ### macOS
 
@@ -134,7 +135,7 @@ cmake --preset macos-ci -DENABLE_CCACHE=OFF -DCODESIGN_IDENTITY=- -DCODESIGN_TEA
 cmake --build --preset macos-ci --config RelWithDebInfo
 cmake --install build_macos --config RelWithDebInfo --prefix release/RelWithDebInfo
 mkdir -p "$HOME/Library/Application Support/obs-studio/plugins"
-cp -R release/RelWithDebInfo/obs-shindan-chan-plugin.plugin "$HOME/Library/Application Support/obs-studio/plugins/"
+cp -R release/RelWithDebInfo/shindan-chan.plugin "$HOME/Library/Application Support/obs-studio/plugins/"
 ```
 
 ### Ubuntu 26.04 x86_64
@@ -171,6 +172,12 @@ GPL-2.0 (same as OBS Studio)
 AllegroMoltoV - [https://www.allegromoltov.jp](https://www.allegromoltov.jp)
 
 ## 更新情報
+
+### v1.0.2
+
+- 名前から OBS を外し、表示名を「診断ちゃん / Shindan-chan」にしました。リポジトリの名前を obs-shindan-chan-plugin から shindan-chan に変えました。
+- プラグインのフォルダーの名前が obs-shindan-chan-plugin から shindan-chan に変わりました。v1.0.1 以前から更新するときは、`plugins` フォルダーにある古い `obs-shindan-chan-plugin` フォルダーを削除してください。残すと古い版も読み込まれます。ドックの配置はそのまま引き継がれます。
+- 配信プラグイン倉庫くんに表示名と載せる OS を伝える宣言ファイル (.soko-kun/config.json) を足しました。macOS と Linux の配布物は動作を確かめていないため、倉庫くんには Windows の配布物だけを載せます。診断の動作は v1.0.1 と同じです。
 
 ### v1.0.1
 
